@@ -1,0 +1,22 @@
+# https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
+# A Kubernetes Service is an abstraction which defines a logical set of Pods running somewhere in your cluster,
+# that all provide the same functionality. When created, each Service is assigned a unique IP address (also called clusterIP). 
+# You should now be able to curl the nginx Service on <CLUSTER-IP>:<PORT> from any node in your cluster. 
+# $ kubectl get svc nginx
+# $ kubectl describe svc nginx
+# $ kubectl get ep nginx
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80 # the abstracted Service port, which can be any port other pods use to access the Service
+    protocol: TCP
+    targetPort: 80 # the port the container accepts traffic on, specified in the deployment
+  selector:
+    app: nginx
+
