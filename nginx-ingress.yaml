@@ -1,0 +1,24 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+#
+# You can expose a Service in multiple ways that don’t directly involve the Ingress resource:
+#
+# * Use Service.Type=LoadBalancer
+# * Use Service.Type=NodePort
+# * Use a Port Proxy
+# $ curl -k https://192.168.99.100/testpath
+# <!DOCTYPE .....
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        backend:
+          serviceName: nginx
+          servicePort: 80
